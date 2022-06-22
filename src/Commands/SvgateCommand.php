@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Uzbek\Svgate\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class SvgateCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-svgate';
 
     public $description = 'My command';
 
