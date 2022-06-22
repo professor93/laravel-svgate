@@ -11,6 +11,6 @@ class Svgate extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'laravel-svgate';
+        return 'svgate';
     }
 }

@@ -16,10 +16,8 @@ class SvgateServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('laravel-svgate')
+            ->name('svgate')
             ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel-svgate_table')
             ->hasCommand(SvgateCommand::class);
     }
 }

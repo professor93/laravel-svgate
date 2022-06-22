@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 class SvgateCommand extends Command
 {
-    public $signature = 'laravel-svgate';
+    public $signature = 'svgate';
 
     public $description = 'My command';
 
