@@ -6,6 +6,7 @@ use DateTime;
 use Uzbek\Svgate\Dtos\EposDto;
 use Uzbek\Svgate\Dtos\SenderDto;
 use Uzbek\Svgate\Response\Balance;
+use Uzbek\Svgate\Response\BinList;
 use Uzbek\Svgate\Response\CardInfo;
 use Uzbek\Svgate\Response\CardNew;
 use Uzbek\Svgate\Response\CardsNewOtp;
@@ -22,10 +23,15 @@ use Uzbek\Svgate\Response\P2pUniversalCredit;
 use Uzbek\Svgate\Response\ReportDetail;
 use Uzbek\Svgate\Response\ReportShort;
 use Uzbek\Svgate\Response\ReportSum;
+use Uzbek\Svgate\Response\TerminalAdd;
+use Uzbek\Svgate\Response\TerminalCheck;
+use Uzbek\Svgate\Response\TerminalGet;
+use Uzbek\Svgate\Response\TerminalRemove;
 use Uzbek\Svgate\Response\TransferExt;
 use Uzbek\Svgate\Response\TransferPay;
 use Uzbek\Svgate\Response\TransferReverse;
 use Uzbek\Svgate\Response\TransferReversePartial;
+use Uzbek\Svgate\Response\TransHistoryFilter;
 use Uzbek\Trait\Base;
 use Uzbek\Trait\Utils;
 
@@ -375,9 +381,9 @@ class Svgate
         return new HoldGetId($response);
     }
 
-    public function holdGetCardId(string $cardId)
+    public function holdGetCardId(string $cardId): array
     {
-        $response = $this->sendRequest('"hold.get.cardId', [
+        $response = $this->sendRequest('hold.get.cardId', [
             "cardId" => $cardId,
         ]);
 
@@ -391,6 +397,143 @@ class Svgate
             $res[] = new HoldGetCardId($item);
         }
 
+
+        return $res;
+    }
+
+    //TODO: to asking
+    public function getTransHistoryFilter(array $cardIds, string $startDate, string $endDate, int $pageNumber, int $pageSize, int $isCredit)
+    {
+        $response = $this->sendRequest('trans.history.filter', [
+            "criteria" => [
+                "cardIds" => $cardIds,
+                "range" => [
+                    "startDate" => $startDate,
+                    "endDate" => $endDate,
+                ],
+                "pageNumber" => $pageNumber,
+                "pageSize" => $pageSize,
+                "isCredit" => $isCredit,
+            ],
+        ]);
+
+        if (isset($response['error'])) {
+            return [];
+        }
+
+        $res = [];
+
+        foreach ($response['content'] as $item) {
+            $res[] = new TransHistoryFilter($item);
+        }
+
+
+        return $res;
+
+    }
+
+    //TODO: to asking
+    public function getTransHistory(array $cardIds, string $startDate, string $endDate, int $pageNumber, int $pageSize)
+    {
+        $response = $this->sendRequest('trans.history', [
+            "criteria" => [
+                "cardIds" => $cardIds,
+                "range" => [
+                    "startDate" => $startDate,
+                    "endDate" => $endDate,
+                ],
+                "pageNumber" => $pageNumber,
+                "pageSize" => $pageSize,
+            ],
+        ]);
+
+        if (isset($response['error'])) {
+            return [];
+        }
+
+        $res = [];
+
+        foreach ($response['content'] as $item) {
+            $res[] = new TransHistoryFilter($item);
+        }
+
+
+        return $res;
+
+    }
+
+    public function terminalAdd(EposDto $dto, string $name, int $type): TerminalAdd
+    {
+        $response = $this->sendRequest('terminal.add', [
+            "terminal" => [
+                "merchantId" => $dto->getMerchantId(),
+                "terminalId" => $dto->getTerminalId(),
+                "port" => $dto->getPort(),
+                "name" => $name,
+                "type" => $type,
+            ],
+        ]);
+
+        return new TerminalAdd($response);
+    }
+
+    public function terminalCheck(EposDto $dto): TerminalCheck
+    {
+        $response = $this->sendRequest('terminal.check', [
+            "terminal" => [
+                "merchantId" => $dto->getMerchantId(),
+                "terminalId" => $dto->getTerminalId(),
+            ],
+        ]);
+
+        return new TerminalCheck($response);
+    }
+
+    public function terminalGet(EposDto $dto)
+    {
+        $response = $this->sendRequest('terminal.get', [
+        ]);
+
+        if (isset($response['error'])) {
+            return [];
+        }
+
+        $res = [];
+
+        foreach ($response['content'] as $item) {
+            $res[] = new TerminalGet($item);
+        }
+
+
+        return $res;
+    }
+
+    public function terminalRemove(EposDto $dto): TerminalRemove
+    {
+        $response = $this->sendRequest('terminal.remove', [
+            "terminal" => [
+                "merchantId" => $dto->getMerchantId(),
+                "terminalId" => $dto->getTerminalId(),
+            ],
+        ]);
+
+        return new TerminalRemove($response);
+    }
+
+    public function getBinList(): array
+    {
+        $response = $this->sendRequest('get.bin.list', [
+        ]);
+
+        if (isset($response['error'])) {
+            return [];
+        }
+
+        $res = [];
+
+        foreach ($response as $item) {
+            $res[] = new BinList($item);
+        }
 
         return $res;
     }
