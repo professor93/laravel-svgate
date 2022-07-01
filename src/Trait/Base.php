@@ -20,7 +20,11 @@ trait Base
         $url = $this->config['svgate_url'];
         $preparedParams = $this->prepareRequestParams($method, $params);
 
-        return Http::post($url, $preparedParams)
+        return Http::withHeaders([
+            'Content-Type' => 'application/json; charset=utf-8',
+            'Accept' => 'application/json',
+//            'Authorization'=> Base64::encode($this->config['svgate_login'] . ':' . $this->config['svgate_password'])
+        ])->post($url, $preparedParams)
             ->throw(function ($response, $e) {
                 throw new \Exception($response->json()['error']['message']);
             })
