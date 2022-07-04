@@ -2,10 +2,9 @@
 
 namespace Uzbek\Svgate\Response;
 
+use Uzbek\Svgate\Dtos\ReportShortDto;
+
 class ReportShort extends BaseResponse
 {
-    public int $amount;
-    public string $date;
-    public string $svId;
-    public string $extId;
+    public ReportShortDto $dto;
 }

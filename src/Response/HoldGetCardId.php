@@ -2,15 +2,9 @@
 
 namespace Uzbek\Svgate\Response;
 
+use Uzbek\Svgate\Dtos\HoldGetCardIdDto;
+
 class HoldGetCardId extends BaseResponse
 {
-    public int $hid;
-    public string $crefNo;
-    public int $reqamt;
-    public string $createTime;
-    public string $waitingTime;
-    public int $status;
-    public ?string $remark;
-    public ?string $accNo;
-    public string $userName;
+    public HoldGetCardIdDto $dto;
 }

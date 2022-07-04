@@ -2,13 +2,11 @@
 
 namespace Uzbek\Svgate\Models;
 
-use Uzbek\Svgate\Svgate;
+use Uzbek\Trait\Base;
+use Uzbek\Trait\Utils;
 
 class BaseModel
 {
-
-    public function __construct(protected Svgate $svgate)
-    {
-
-    }
+    use Utils;
+    use Base;
 }
