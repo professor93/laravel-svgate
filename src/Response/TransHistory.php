@@ -4,10 +4,10 @@ namespace Uzbek\Svgate\Response;
 
 use Uzbek\Svgate\Dtos\TransHistoryFilterDto;
 
-class TransHistoryFilter extends BaseResponse
+class TransHistory
 {
     public TransHistoryFilterDto $content;
-    public bool $last;
+    public string $last;
     public int $totalElements;
     public int $totalPages;
     public int $size;
@@ -15,4 +15,6 @@ class TransHistoryFilter extends BaseResponse
     public ?string $sort;
     public int $numberOfElements;
     public bool $first;
+    public int $totalDebit;
+    public int $totalCredit;
 }

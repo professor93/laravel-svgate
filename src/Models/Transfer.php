@@ -7,6 +7,7 @@ use Uzbek\Svgate\Response\TerminalAdd;
 use Uzbek\Svgate\Response\TransferExt;
 use Uzbek\Svgate\Response\TransferPay;
 use Uzbek\Svgate\Response\TransferReverse;
+use Uzbek\Svgate\Response\TransHistory;
 use Uzbek\Svgate\Response\TransHistoryFilter;
 use Uzbek\Svgate\Response\TransferReversePartial;
 
@@ -81,7 +82,7 @@ class Transfer extends BaseModel
         return new TransHistoryFilter($response);
     }
 
-    public function getTransHistory(array $cardIds, string $startDate, string $endDate, int $pageNumber, int $pageSize): TransHistoryFilter
+    public function getTransHistory(array $cardIds, string $startDate, string $endDate, int $pageNumber, int $pageSize)
     {
         $response = $this->sendRequest('trans.history', [
             "criteria" => [
@@ -96,7 +97,7 @@ class Transfer extends BaseModel
         ]);
 
 
-        return new TransHistoryFilter($response);
+        return new TransHistory($response);
     }
 
     public function terminalAdd(EposDto $dto, string $name, int $type): TerminalAdd
