@@ -7,8 +7,8 @@ use Uzbek\Svgate\Response\TerminalAdd;
 use Uzbek\Svgate\Response\TransferExt;
 use Uzbek\Svgate\Response\TransferPay;
 use Uzbek\Svgate\Response\TransferReverse;
-use Uzbek\Svgate\Response\TransferReversePartial;
 use Uzbek\Svgate\Response\TransHistoryFilter;
+use Uzbek\Svgate\Response\TransferReversePartial;
 
 class Transfer extends BaseModel
 {
@@ -62,7 +62,6 @@ class Transfer extends BaseModel
         return new TransferReversePartial($response);
     }
 
-    //TODO: to asking
     public function getTransHistoryFilter(array $cardIds, string $startDate, string $endDate, int $pageNumber, int $pageSize, int $isCredit)
     {
         $response = $this->sendRequest('trans.history.filter', [
@@ -79,7 +78,7 @@ class Transfer extends BaseModel
         ]);
 
 
-        return new TransHistoryFilter($response['content']);
+        return new TransHistoryFilter($response);
     }
 
     public function getTransHistory(array $cardIds, string $startDate, string $endDate, int $pageNumber, int $pageSize): TransHistoryFilter
