@@ -11,6 +11,6 @@ class Svgate extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return Svgate::class;
+        return 'svgate';
     }
 }
