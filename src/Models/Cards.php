@@ -34,7 +34,7 @@ class Cards extends BaseModel
 
     public function cardsNewOtp(string $pan, string $expiry): CardsNewOtp
     {
-        $response = $this->svgate->sendRequest('cards.new.otp', [
+        $response = $this->sendRequest('cards.new.otp', [
             'card' => [
                 'pan' => $pan,
                 'expiry' => $expiry,
@@ -46,7 +46,7 @@ class Cards extends BaseModel
 
     public function cardsNewVerify(string $id, string $code): CardNew
     {
-        $response = $this->svgate->sendRequest('cards.new.verify', [
+        $response = $this->sendRequest('cards.new.verify', [
             'otp' => [
                 'id' => $id,
                 'code' => $code,
@@ -58,7 +58,7 @@ class Cards extends BaseModel
 
     public function getByIds(array $ids): CardInfo
     {
-        $response = $this->svgate->sendRequest('cards.get', [
+        $response = $this->sendRequest('cards.get', [
             'ids' => $ids,
         ]);
 
@@ -67,7 +67,7 @@ class Cards extends BaseModel
 
     public function getBalance(array $ids): Balance
     {
-        $response = $this->svgate->sendRequest('balance.get', [
+        $response = $this->sendRequest('balance.get', [
             'ids' => $ids,
         ]);
 
