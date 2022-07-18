@@ -17,7 +17,7 @@ trait Base
 
     public function sendRequest(string $method, array $params)
     {
-        $url = $this->config['svgate_url'];
+        $url = $this->config['svgate_base_url'];
         $preparedParams = $this->prepareRequestParams($method, $params);
 
         return Http::withHeaders([
